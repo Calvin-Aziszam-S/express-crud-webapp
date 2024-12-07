@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Community Comments</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+		/>
+		<style>
+			:root {
+				--bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				--glass-background: rgba(255, 255, 255, 0.2);
+				--glass-border: rgba(255, 255, 255, 0.125);
+				--text-primary: #ffffff;
+				--text-secondary: #e0e0e0;
+				--accent-color: #4bcffa;
+				--accent-color-hover: #0be881;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				transition: all 0.3s ease;
+			}
+
+			body {
+				font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, Helvetica, Arial, sans-serif;
+				background: var(--bg-primary);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				padding: 1rem;
+				overflow-x: hidden;
+				color: var(--text-primary);
+			}
+
+			.app-container {
+				width: 100%;
+				max-width: 600px;
+				padding: 0 1rem;
+			}
+
+			.comments-container {
+				background: var(--glass-background);
+				backdrop-filter: blur(15px);
+				-webkit-backdrop-filter: blur(15px);
+				border-radius: 16px;
+				border: 1px solid var(--glass-border);
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				padding: 2rem;
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+			}
+
+			.comments-header {
+				text-align: center;
+				margin-bottom: 1.5rem;
+				color: var(--text-primary);
+				font-weight: 600;
+				font-size: 1.75rem;
+				position: relative;
+			}
+
+			h1 {
+				margin: 0;
+			}
+
+			.comments-list {
+				list-style-type: none;
+				margin-bottom: 1.5rem;
+				overflow-y: scroll;
+				max-height: 60vh;
+				padding-right: 10px;
+				scrollbar-gutter: stable;
+			}
+
+			.comments-list::-webkit-scrollbar {
+				width: 8px;
+			}
+
+			.comments-list::-webkit-scrollbar-thumb {
+				background: var(--accent-color);
+				border-radius: 8px;
+			}
+
+			.comments-list::-webkit-scrollbar-track {
+				background: var(--glass-background);
+				border-radius: 8px;
+			}
+
+			.comment-item {
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(5px);
+				border-radius: 10px;
+				padding: 1rem;
+				margin-bottom: 1rem;
+				border: 1px solid var(--glass-border);
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+			}
+
+			.comment-link {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				text-decoration: none;
+				color: var(--text-primary);
+			}
+
+			.comment-text {
+				flex-grow: 1;
+				margin-bottom: 0.5rem;
+				font-weight: 300;
+				word-break: break-word;
+			}
+
+			.comment-author {
+				font-weight: 500;
+				opacity: 0.8;
+				align-self: flex-end;
+				font-size: 0.875rem;
+			}
+
+			.comment-item:hover {
+				transform: translateY(-3px);
+			}
+
+			.new-comment-btn {
+				position: relative;
+				width: 100%;
+				padding: 0.75rem;
+				background: var(--accent-color);
+				color: #ffffff;
+				border: none;
+				border-radius: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				overflow: hidden;
+			}
+
+			.new-comment-btn::before {
+				content: "";
+				position: absolute;
+				z-index: -1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.2),
+					rgba(255, 255, 255, 0.1)
+				);
+				transform: scaleX(0);
+				transform-origin: 0 50%;
+				transition: transform 0.3s ease-out;
+			}
+
+			.new-comment-btn:hover {
+				transform: translateY(-3px);
+			}
+
+			.new-comment-btn:hover::before {
+				transform: scaleX(1);
+			}
+
+			.new-comment-btn:active {
+				transform: scale(0.95);
+			}
+
+			@media screen and (max-width: 480px) {
+				.comments-container {
+					padding: 1rem;
+				}
+
+				.new-comment-btn {
+					font-size: 0.9rem;
+					padding: 0.65rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-container">
+			<div class="comments-container">
+				<h1 class="comments-header">Community Comments</h1>
+
+				<ul class="comments-list">
+					<% for(comment of comments) { %>
+					<li class="comment-item">
+						<a
+							href="http://localhost:8080/comments/<%= comment.id %>"
+							class="comment-link"
+						>
+							<span class="comment-text"><%= comment.comment %></span>
+							<span class="comment-author"><%= comment.username %></span>
+						</a>
+					</li>
+					<% } %>
+				</ul>
+
+				<form action="/comments/new">
+					<button class="new-comment-btn">+ New Comment</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

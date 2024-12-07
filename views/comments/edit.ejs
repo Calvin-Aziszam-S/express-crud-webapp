@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Edit Comment</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+		/>
+		<style>
+			:root {
+				--bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				--glass-background: rgba(255, 255, 255, 0.2);
+				--glass-border: rgba(255, 255, 255, 0.125);
+				--text-primary: #ffffff;
+				--text-secondary: #e0e0e0;
+				--accent-color: #4bcffa;
+				--accent-color-hover: #0be881;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				transition: all 0.3s ease;
+			}
+
+			body {
+				font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, Helvetica, Arial, sans-serif;
+				background: var(--bg-primary);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				padding: 1rem;
+				overflow-x: hidden;
+				color: var(--text-primary);
+			}
+
+			.app-container {
+				width: 100%;
+				max-width: 500px;
+				padding: 0 1rem;
+			}
+
+			.edit-container {
+				background: var(--glass-background);
+				backdrop-filter: blur(15px);
+				-webkit-backdrop-filter: blur(15px);
+				border-radius: 16px;
+				border: 1px solid var(--glass-border);
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				padding: 2rem;
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+			}
+
+			.edit-header {
+				text-align: center;
+				margin-bottom: 1.5rem;
+				color: var(--text-primary);
+				font-weight: 600;
+				font-size: 1.75rem;
+				position: relative;
+			}
+
+			.edit-header::after {
+				content: "";
+				position: absolute;
+				bottom: -10px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 50px;
+				height: 3px;
+				background: var(--text-primary);
+				opacity: 0.7;
+			}
+
+			.comment-textarea {
+				width: 100%;
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(5px);
+				border: 1px solid var(--glass-border);
+				border-radius: 10px;
+				color: var(--text-primary);
+				padding: 1rem;
+				margin-bottom: 1rem;
+				min-height: 150px;
+				resize: vertical;
+				font-size: 1rem;
+				line-height: 1.5;
+			}
+
+			.comment-textarea:focus {
+				outline: none;
+				border-color: var(--accent-color);
+				box-shadow: 0 0 0 3px rgba(75, 207, 250, 0.3);
+			}
+
+			.save-btn {
+				position: relative;
+				width: 100%;
+				padding: 0.75rem;
+				background: var(--accent-color);
+				color: #ffffff;
+				border: none;
+				border-radius: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				overflow: hidden;
+			}
+
+			.save-btn::before {
+				content: "";
+				position: absolute;
+				z-index: -1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.2),
+					rgba(255, 255, 255, 0.1)
+				);
+				transform: scaleX(0);
+				transform-origin: 0 50%;
+				transition: transform 0.3s ease-out;
+			}
+
+			.save-btn:hover {
+				transform: translateY(-3px);
+			}
+
+			.save-btn:hover::before {
+				transform: scaleX(1);
+			}
+
+			.save-btn:active {
+				transform: scale(0.95);
+			}
+
+			@media screen and (max-width: 480px) {
+				.edit-container {
+					padding: 1rem;
+				}
+
+				.edit-header {
+					font-size: 1.5rem;
+				}
+
+				.save-btn {
+					font-size: 0.9rem;
+					padding: 0.65rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-container">
+			<div class="edit-container">
+				<h1 class="edit-header">Edit Comment</h1>
+
+				<form method="POST" action="/comments/<%= comment.id %>?_method=PATCH">
+					<textarea
+						name="comment"
+						id="comment"
+						class="comment-textarea"
+						placeholder="Edit your comment here..."
+					>
+<%= comment.comment.trim() %></textarea
+					>
+
+					<button type="submit" class="save-btn">Save Changes</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

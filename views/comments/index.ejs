@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Home</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+		/>
+		<style>
+			:root {
+				--bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				--glass-background: rgba(255, 255, 255, 0.2);
+				--glass-border: rgba(255, 255, 255, 0.125);
+				--text-primary: #ffffff;
+				--text-secondary: #e0e0e0;
+				--accent-color: #4bcffa;
+				--accent-color-hover: #0be881;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				transition: all 0.3s ease;
+			}
+
+			body {
+				font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, Helvetica, Arial, sans-serif;
+				background: var(--bg-primary);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				color: var(--text-primary);
+				padding: 1rem;
+				text-align: center;
+			}
+
+			.container {
+				width: 30em;
+				display: flex;
+				flex-direction: column;
+			}
+			h1 {
+				font-size: 2rem;
+				margin-bottom: 2rem;
+			}
+
+			button {
+				position: relative;
+				width: 100%;
+				padding: 0.75rem;
+				background: var(--accent-color);
+				color: #ffffff;
+				border: none;
+				border-radius: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				cursor: pointer;
+				overflow: hidden;
+			}
+
+			button::before {
+				content: "";
+				position: absolute;
+				z-index: -1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.2),
+					rgba(255, 255, 255, 0.1)
+				);
+				transform: scaleX(0);
+				transform-origin: 0 50%;
+				transition: transform 0.3s ease-out;
+			}
+
+			button:hover {
+				transform: translateY(-3px);
+			}
+
+			button:hover::before {
+				transform: scaleX(1);
+			}
+
+			button:active {
+				transform: scale(0.95);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Welcome to My Simple Express CRUD WebApp</h1>
+			<form method="GET" action="/comments">
+				<button>Go to Comment Section</button>
+			</form>
+		</div>
+	</body>
+</html>
